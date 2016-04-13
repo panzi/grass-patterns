@@ -21,6 +21,7 @@ function init () {
 	document.body.style.background = page_bg_color.value;
 
 	var context = {
+		page_bg_color: page_bg_color.value,
 		front_color: parseColor(front_color.value),
 		back_color: parseColor(back_color.value),
 		x_offset: Number(x_offset.value),
@@ -74,6 +75,8 @@ function init () {
 
 	page_bg_color.addEventListener("change", function () {
 		document.body.style.background = this.value;
+		context.page_bg_color = this.value;
+		redraw(context);
 	}, false);
 
 	front_color.addEventListener("change", function () {
@@ -245,7 +248,8 @@ function redraw (context) {
 	var h = context.canvas.height;
 	var t = Date.now();
 
-	ctx.clearRect(0, 0, w, h);
+	ctx.fillStyle = context.page_bg_color;
+	ctx.fillRect(0, 0, w, h);
 	ctx.lineWidth = 1;
 	var color = {r: 0, g: 0, b: 0};
 	for (var y = y_res - 1; y >= 0; -- y) {
