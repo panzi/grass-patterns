@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Waves</title>
+		<script type="text/javascript" src="waves.js"></script>
+		<style type="text/css">
+		canvas {
+			display: block;
+			margin: auto;
+		}
+		textarea {
+			display: block;
+			min-width: 800px;
+			min-height: 100px;
+		}
+		input[type=number] {
+			width: 4em;
+			text-align: right;
+		}
+		html, body {
+			padding: 0;
+			margin: 0;
+		}
+		.controls {
+			margin: 1em;
+		}
+		</style>
+	</head>
+	<body onload="init();">
+		<canvas id="canvas" width="1000" height="600"></canvas>
+
+		<div class="controls">
+			<label for="width">Canvas-Width:</label>
+			<input type="number" id="width" value="830"/>
+
+			<label for="height">Canvas-Height:</label>
+			<input type="number" id="height" value="800"/>
+
+			<label for="x_res">Columns:</label>
+			<input type="number" id="x_res" value="290"/>
+
+			<label for="y_res">Rows:</label>
+			<input type="number" id="y_res" value="110"/>
+
+			<label for="x_offset">X-Offset:</label>
+			<input type="number" id="x_offset" value="2.6"/>
+
+			<label for="y_offset">Y-Offset:</label>
+			<input type="number" id="y_offset" value="7"/>
+
+			<label for="row_x_offset">Row-X-Offset:</label>
+			<input type="number" id="row_x_offset" value="0.5"/>
+
+			<label for="fps">FPS:</label>
+			<input type="number" id="fps" value="12" min="0"/>
+
+			<label for="front_color">Front-Color:</label>
+			<input type="color" id="front_color" value="#0d2b08"/>
+
+			<label for="back_color">Back-Color:</label>
+			<input type="color" id="back_color" value="#60610a"/>
+
+			<label for="page_bg_color">Page-Background-Color:</label>
+			<input type="color" id="page_bg_color" value="#a8e799"/>
+
+			<button type="button" onclick="togglePlayPause();">Play/Pause</button>
+			<br/>
+
+			<label for="function">Function:</label>
+			<textarea id="function">// parameters: x_ind, y_ind, x_pos, y_pos, t, pix, line: {x1, y1, x2, y2}, color: {r, g, b, a}
+var PI_half = Math.PI / 2;
+// var a = PI_half - PI_half * pix * 0.2 + Math.PI * -0.05;
+var a = PI_half - PI_half * pix * 0.2 + Math.sin(t * 0.001 - x_ind * 0.02 + Math.sin(y_ind * 0.05)) * Math.PI * 0.05;
+// var a = PI_half - PI_half * pix * 0.2 - 0.2;
+var len = 22;
+var y_off = Math.sin(x_ind * 0.05) * 3;
+var x_off = Math.sin(y_ind * 0.05) * 3;
+line.x1 = x_pos + x_off;
+line.y1 = y_pos + y_off;
+line.x2 = x_pos + x_off + len * Math.cos(a);
+line.y2 = y_pos + y_off + len * Math.sin(a);</textarea>
+		</div>
+	</body>
+</html>
